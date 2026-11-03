@@ -53,6 +53,14 @@ Run date: 2026-11-03 (Asia/Dhaka). All results are real runs, not estimates.
   corrected; no app code changed for it.
 - No app-logic bugs found in either suite.
 
+## Pages build fix
+
+The first GitHub Pages build failed because Jekyll tried to process
+TEST_RESULTS.md and tripped on a `{{{` sequence in the invalid-import test
+description. Fix: an empty `.nojekyll` file at the repo root tells GitHub
+Pages to serve the static files as-is without Jekyll processing. No app
+code changed for this fix.
+
 ## Source hygiene
 
 All shipped sources are pure ASCII (Bangla UI strings are `\uXXXX` escapes

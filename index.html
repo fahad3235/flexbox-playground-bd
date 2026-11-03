@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flexbox Playground BD</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1 id="app-title">Flexbox Playground BD</h1>
+    <p class="sub" id="app-sub">Learn CSS Flexbox by playing with a live layout.</p>
+  </div>
+  <button id="lang-btn" type="button">Bangla</button>
+</header>
+
+<main>
+  <section class="panel" aria-labelledby="h-container">
+    <h2 id="h-container">Container controls</h2>
+    <div class="grid">
+      <label><span data-i18n="direction">Direction</span>
+        <select id="direction">
+          <option value="row">row</option><option value="row-reverse">row-reverse</option>
+          <option value="column">column</option><option value="column-reverse">column-reverse</option>
+        </select></label>
+      <label><span data-i18n="wrap">Wrap</span>
+        <select id="wrap">
+          <option value="nowrap">nowrap</option><option value="wrap">wrap</option><option value="wrap-reverse">wrap-reverse</option>
+        </select></label>
+      <label><span data-i18n="justify">Justify content</span>
+        <select id="justify">
+          <option value="flex-start">flex-start</option><option value="flex-end">flex-end</option>
+          <option value="center">center</option><option value="space-between">space-between</option>
+          <option value="space-around">space-around</option><option value="space-evenly">space-evenly</option>
+        </select></label>
+      <label><span data-i18n="alignItems">Align items</span>
+        <select id="alignItems">
+          <option value="stretch">stretch</option><option value="flex-start">flex-start</option>
+          <option value="flex-end">flex-end</option><option value="center">center</option><option value="baseline">baseline</option>
+        </select></label>
+      <label><span data-i18n="alignContent">Align content</span>
+        <select id="alignContent">
+          <option value="stretch">stretch</option><option value="flex-start">flex-start</option>
+          <option value="flex-end">flex-end</option><option value="center">center</option>
+          <option value="space-between">space-between</option><option value="space-around">space-around</option>
+        </select></label>
+      <label><span data-i18n="gap">Gap (px)</span>
+        <input id="gap" type="range" min="0" max="40" step="1" value="12">
+        <span id="gap-val">12</span></label>
+      <label><span data-i18n="itemCount">Number of boxes</span>
+        <input id="itemCount" type="range" min="1" max="8" step="1" value="3">
+        <span id="itemCount-val">3</span></label>
+      <label><span data-i18n="previewSize">Preview width</span>
+        <select id="previewSize">
+          <option value="full">Full</option><option value="768">Tablet (768px)</option><option value="390">Mobile (390px)</option>
+        </select></label>
+    </div>
+    <div class="row">
+      <span class="lbl" data-i18n="presets">Presets:</span>
+      <button type="button" data-preset="centered" data-i18n="presetCentered">Centered box</button>
+      <button type="button" data-preset="navbar" data-i18n="presetNavbar">Navbar</button>
+      <button type="button" data-preset="cardRow" data-i18n="presetCardRow">Card row</button>
+      <button type="button" data-preset="sidebar" data-i18n="presetSidebar">Sidebar + content</button>
+      <button type="button" data-preset="columnStack" data-i18n="presetColumn">Column stack</button>
+      <button type="button" id="reset-btn" data-i18n="reset">Reset</button>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-item">
+    <h2 id="h-item">Selected box</h2>
+    <p class="hint" id="item-hint">Click a box in the preview to select it, then change its flex settings.</p>
+    <div class="grid">
+      <label><span data-i18n="selected">Selected box</span>
+        <select id="selectedItem"><option value="0">1</option></select></label>
+      <label><span data-i18n="grow">Flex grow</span>
+        <input id="grow" type="number" min="0" max="3" step="1" value="0"></label>
+      <label><span data-i18n="shrink">Flex shrink</span>
+        <input id="shrink" type="number" min="0" max="3" step="1" value="1"></label>
+      <label><span data-i18n="order">Order</span>
+        <input id="order" type="number" min="-5" max="5" step="1" value="0"></label>
+      <label><span data-i18n="alignSelf">Align self</span>
+        <select id="alignSelf">
+          <option value="auto">auto</option><option value="flex-start">flex-start</option>
+          <option value="flex-end">flex-end</option><option value="center">center</option>
+          <option value="stretch">stretch</option><option value="baseline">baseline</option>
+        </select></label>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-preview">
+    <h2 id="h-preview">Live preview</h2>
+    <div id="preview-wrap"><div id="preview" aria-live="polite"></div></div>
+    <p class="hint" id="preview-note">The preview updates as you change any control. No data leaves your browser.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="h-css">
+    <h2 id="h-css">Generated CSS</h2>
+    <pre id="css-out"></pre>
+    <div class="row">
+      <button type="button" id="copy-btn" data-i18n="copyCss">Copy CSS</button>
+      <span id="copy-msg" role="status"></span>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-saved">
+    <h2 id="h-saved">Saved layouts</h2>
+    <div class="row">
+      <input id="layout-name" type="text" maxlength="60" placeholder="Layout name">
+      <button type="button" id="save-btn" data-i18n="saveLayout">Save layout</button>
+      <button type="button" id="export-btn" data-i18n="export">Export JSON</button>
+    </div>
+    <p id="saved-empty" class="hint">No saved layouts yet.</p>
+    <ul id="saved-list"></ul>
+    <label><span data-i18n="importLabel">Import JSON</span>
+      <textarea id="import-text" rows="3" placeholder='{"container":{...},"items":[...]}'></textarea></label>
+    <div class="row">
+      <button type="button" id="import-btn" data-i18n="import">Import</button>
+      <button type="button" id="clear-btn" data-i18n="clearSaved">Delete all saved</button>
+      <span id="import-msg" role="status"></span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p id="footer-text">Offline learning tool. Flexbox values follow the CSS Flexible Box Layout specification; results may vary slightly by browser.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
